@@ -1,0 +1,36 @@
+# Android fstab file
+# Filesystem checker should come after filesystems that don't specify MF_CHECK
+
+# Main Partitions
+/system         ext4    /dev/block/bootdevice/by-name/system       flags=display="System"
+/system_image   emmc    /dev/block/bootdevice/by-name/system       flags=backup=0
+/data           ext4    /dev/block/bootdevice/by-name/userdata     flags=encryptable=footer;length=-16384
+/cache          ext4    /dev/block/bootdevice/by-name/cache        flags=display="Cache"
+/persist        ext4    /dev/block/bootdevice/by-name/persist      flags=display="Persist";backup=1
+
+# Boot & Recovery
+/boot           emmc    /dev/block/bootdevice/by-name/boot         flags=display="Boot";backup=1
+/recovery       emmc    /dev/block/bootdevice/by-name/recovery     flags=display="Recovery";backup=1
+/misc           emmc    /dev/block/bootdevice/by-name/misc         flags=display="Misc"
+
+# Bootloader
+/aboot          emmc    /dev/block/bootdevice/by-name/aboot        flags=display="ABoot";backup=1
+/tz             emmc    /dev/block/bootdevice/by-name/tz           flags=backup=1;subpartitionof=/aboot
+/rpm            emmc    /dev/block/bootdevice/by-name/rpm          flags=backup=1;subpartitionof=/aboot
+
+# Modem & EFS
+/modem_st1      emmc    /dev/block/bootdevice/by-name/modemst1     flags=display="Modem1";backup=1
+/modem_st2      emmc    /dev/block/bootdevice/by-name/modemst2     flags=display="Modem2";backup=1
+
+# OEM & Misc
+/oem            emmc    /dev/block/bootdevice/by-name/oem          flags=display="OEM";backup=1
+/smartfren      emmc    /dev/block/bootdevice/by-name/smartfren    flags=backup=1
+/sysinfo        emmc    /dev/block/bootdevice/by-name/sysinfo      flags=backup=1
+/keystore       emmc    /dev/block/bootdevice/by-name/keystore     flags=backup=1
+/fwinfo         emmc    /dev/block/bootdevice/by-name/fwinfo       flags=backup=1
+/devinfo        emmc    /dev/block/bootdevice/by-name/devinfo      flags=backup=1
+
+# External Storage
+/external_sd    auto    /dev/block/mmcblk1p1                       flags=display="Micro SDCard";storage;wipeingui;removable
+/usb-otg        auto    /dev/block/sda1                            flags=display="USB Storage";storage;wipeingui;removable
+
